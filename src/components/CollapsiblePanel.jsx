@@ -15,9 +15,8 @@ export default function CollapsiblePanel({
 }) {
   const [expanded, setExpanded] = useState(defaultExpanded)
   const [maximized, setMaximized] = useState(false)
-
-  const shellClasses = maximized
-      ? 'fixed inset-2 z-50 overflow-y-auto rounded-[2rem] border border-slate-700/80 bg-slate-950/96 p-4 shadow-2xl shadow-black/60 backdrop-blur-xl sm:inset-4 sm:p-5 md:inset-6'
+    ? 'fixed inset-2 z-50 flex max-h-[calc(100vh-1rem)] w-[calc(100vw-1rem)] max-w-none flex-col overflow-hidden rounded-[2rem] border border-slate-700/80 bg-slate-950/96 p-4 shadow-2xl shadow-black/60 backdrop-blur-xl sm:inset-4 sm:w-[calc(100vw-2rem)] sm:p-5 md:inset-6 md:w-[calc(100vw-3rem)]'
+    : 'glass-panel w-full max-w-full overflow-hidden rounded-[2rem] p-4 sm:p-5'
     : 'glass-panel rounded-[2rem] p-5'
       : 'glass-panel rounded-[2rem] p-4 sm:p-5'
 
@@ -26,23 +25,23 @@ export default function CollapsiblePanel({
       {maximized ? (
         <button
           type="button"
-          aria-label="Close maximized panel"
+          className="fixed inset-0 z-40 cursor-pointer bg-slate-950/70"
           onClick={() => setMaximized(false)}
           className="fixed inset-0 z-40 cursor-default bg-slate-950/70"
-        />
-      ) : null}
       <section className={shellClasses}>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-4">
           <div>
             {eyebrow ? <div className="text-xs uppercase tracking-[0.24em] text-slate-400">{eyebrow}</div> : null}
             <h3 className="mt-2 text-xl font-display font-semibold text-white">{title}</h3>
-            {description ? <p className="mt-2 text-sm leading-6 text-slate-300">{description}</p> : null}
+          <div className="flex flex-wrap items-center gap-2 sm:justify-end">
           </div>
           <div className="flex items-center gap-2">
             {actions}
             {allowMaximize ? (
               <button
-                type="button"
+                className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-slate-700/80 bg-slate-950/60 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200 transition hover:border-slate-500 hover:bg-slate-900/80"
                 onClick={() => setMaximized((current) => !current)}
                 className="inline-flex items-center gap-2 rounded-full border border-slate-700/80 bg-slate-950/60 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200 transition hover:border-slate-500 hover:bg-slate-900/80"
                 aria-expanded={maximized}
@@ -53,7 +52,7 @@ export default function CollapsiblePanel({
               </button>
             ) : null}
             <button
-              type="button"
+              className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-slate-700/80 bg-slate-950/60 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200 transition hover:border-slate-500 hover:bg-slate-900/80"
               onClick={() => setExpanded((current) => !current)}
               className="inline-flex items-center gap-2 rounded-full border border-slate-700/80 bg-slate-950/60 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-200 transition hover:border-slate-500 hover:bg-slate-900/80"
               aria-expanded={expanded}
@@ -64,7 +63,7 @@ export default function CollapsiblePanel({
             </button>
           </div>
         </div>
-
+        <div className={`min-w-0 ${maximized ? maximizedBodyClassName : bodyClassName}`}>{children}</div>
       {expanded ? (
         <div className={maximized ? maximizedBodyClassName : bodyClassName}>{children}</div>
       ) : collapsedHint ? (
