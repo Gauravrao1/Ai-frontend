@@ -12,7 +12,8 @@ export default function RiskGauge({ riskScore = 0, fairnessScore = 100 }) {
       bodyClassName="mt-4 h-80 w-full"
       maximizedBodyClassName="mt-4 h-[72vh] w-full"
     >
-      <div className="flex items-center justify-end">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="text-sm leading-6 text-slate-300">Higher values mean a stronger risk signal and more urgent mitigation.</div>
         <div className="rounded-full border border-slate-700/80 bg-slate-950/60 px-4 py-2 text-sm text-slate-200">
           Fairness {fairnessScore.toFixed(0)}%
         </div>
@@ -34,7 +35,7 @@ export default function RiskGauge({ riskScore = 0, fairnessScore = 100 }) {
           </RadialBarChart>
         </ResponsiveContainer>
       </div>
-      <div className="mt-4 text-center text-sm text-slate-300">Higher values mean more bias risk.</div>
+        <div className="mt-4 text-center text-sm text-slate-300">{riskScore.toFixed(0)}/100 bias risk score</div>
     </CollapsiblePanel>
   )
 }

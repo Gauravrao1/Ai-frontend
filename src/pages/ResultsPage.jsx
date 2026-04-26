@@ -9,14 +9,28 @@ export default function ResultsPage({ analysis, mitigation, explanation, onBack,
   return (
     <div className="space-y-8">
       <header className="glass-panel rounded-[2rem] p-6 lg:p-8">
-        <div className="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between">
-          <div className="max-w-3xl">
-            <h1 className="mt-5 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              BiasLens AI dashboard
-            </h1>
+        <div className="flex flex-col gap-7 xl:flex-row xl:items-end xl:justify-between">
+          <div className="max-w-3xl space-y-5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-cyan-200">
+              Analysis complete
+            </div>
+            <div>
+              <h1 className="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
+                BiasLens results report
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+                A concise fairness summary, model risk snapshot, and mitigation comparison for the uploaded dataset.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              <SummaryCard label="Fairness score" value={`${analysis.fairness_score?.toFixed?.(0) ?? analysis.fairness_score}%`} tone="accent" />
+              <SummaryCard label="Bias risk" value={`${analysis.bias_risk_score?.toFixed?.(0) ?? analysis.bias_risk_score}/100`} tone="warning" />
+              <SummaryCard label="Accuracy" value={`${(analysis.model_accuracy * 100).toFixed(1)}%`} tone="info" />
+            </div>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 xl:justify-end">
             <button
               type="button"
               onClick={onBack}
@@ -43,12 +57,6 @@ export default function ResultsPage({ analysis, mitigation, explanation, onBack,
             </button>
           </div>
         </div>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <SummaryCard label="Fairness score" value={`${analysis.fairness_score?.toFixed?.(0) ?? analysis.fairness_score}%`} tone="accent" />
-          <SummaryCard label="Bias risk" value={`${analysis.bias_risk_score?.toFixed?.(0) ?? analysis.bias_risk_score}/100`} tone="warning" />
-          <SummaryCard label="Accuracy" value={`${(analysis.model_accuracy * 100).toFixed(1)}%`} tone="info" />
-        </div>
       </header>
 
       <Dashboard analysis={analysis} mitigation={mitigation} explanation={explanation} />
@@ -64,7 +72,7 @@ function SummaryCard({ label, value, tone }) {
   }
 
   return (
-    <div className={`rounded-3xl border bg-gradient-to-br p-5 ${classes[tone] || classes.accent}`}>
+    <div className={`rounded-3xl border bg-gradient-to-br p-5 shadow-lg shadow-black/10 ${classes[tone] || classes.accent}`}>
       <div className="text-xs uppercase tracking-[0.24em] text-slate-400">{label}</div>
       <div className="mt-3 font-display text-3xl font-bold text-white">{value}</div>
     </div>

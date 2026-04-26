@@ -7,8 +7,9 @@ export default function MetricCard({ label, value, hint, accent = 'accent' }) {
   }
 
   return (
-    <div className={`glass-panel rounded-3xl border bg-gradient-to-br p-5 ${classes[accent] || classes.accent}`}>
-      <div className="text-xs uppercase tracking-[0.24em] text-slate-400">{label}</div>
+    <div className={`glass-panel rounded-3xl border bg-gradient-to-br p-5 shadow-lg shadow-black/10 ${classes[accent] || classes.accent}`}>
+      <div className="h-1 w-16 rounded-full bg-white/20" />
+      <div className="mt-4 text-xs uppercase tracking-[0.24em] text-slate-400">{label}</div>
       <div className="mt-3 font-display text-3xl font-bold text-white">{value}</div>
       <div className="mt-2 text-sm leading-6 text-slate-300">{hint}</div>
     </div>
