@@ -1,7 +1,7 @@
-const API_URL = (import.meta.env.VITE_API_URL?.trim() || '').replace(/\/$/, '')
+const API_URL = (import.meta.env.VITE_API_URL?.trim() || '/api').replace(/\/$/, '')
 
 if (!API_URL) {
-  throw new Error('VITE_API_URL is not configured. Set it to the deployed BiasLens backend URL.')
+  throw new Error('VITE_API_URL is not configured. Set it to /api or a deployed BiasLens backend URL.')
 }
 
 async function request(path, options = {}) {
