@@ -17,8 +17,9 @@ export default function CollapsiblePanel({
   const [maximized, setMaximized] = useState(false)
 
   const shellClasses = maximized
-    ? 'fixed inset-4 z-50 overflow-y-auto rounded-[2rem] border border-slate-700/80 bg-slate-950/96 p-5 shadow-2xl shadow-black/60 backdrop-blur-xl md:inset-6'
+      ? 'fixed inset-2 z-50 overflow-y-auto rounded-[2rem] border border-slate-700/80 bg-slate-950/96 p-4 shadow-2xl shadow-black/60 backdrop-blur-xl sm:inset-4 sm:p-5 md:inset-6'
     : 'glass-panel rounded-[2rem] p-5'
+      : 'glass-panel rounded-[2rem] p-4 sm:p-5'
 
   return (
     <>
